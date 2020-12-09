@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../components/Home.vue";
 import Login from "../components/Login.vue";
+import Register from "../components/Register.vue";
 
 const routes = [
   {
@@ -21,6 +22,19 @@ const routes = [
         }
     }
   },
+  {
+      path: "/register",
+      name: "Register",
+      component: Register,
+      beforeEnter: () => {
+        if(window.localStorage.getItem('jwtToken') === null){
+            return true
+        } else {
+            console.log("You are already logged in. Redirecting . . .")
+            return false
+        }
+    }
+  }
 ];
 
 const router = createRouter({
