@@ -4,11 +4,11 @@
       <form v-on:submit.prevent="onLogin">
           <div class="d-flew">
                 <label for="email">Email: </label>
-                <input type="email" name="email" id="email" v-model="email" required max="50">
+                <input type="email" name="email" id="email" v-model="email" required maxlength="50">
           </div>
           <div>
               <label for="password">Password: </label>
-              <input type="password" name="password" id="password" v-model="password" required min="8" max="50">
+              <input type="password" name="password" id="password" v-model="password" required minlength="8" maxlength="50">
           </div>
       <button type="submit">Login</button>
       </form>
