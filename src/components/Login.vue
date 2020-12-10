@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { Login } from '../service/AuthService.js'
 export default {
     data(){
         return{
@@ -26,16 +26,10 @@ export default {
     },
     methods:{
         onLogin(){
-            let params = {
+            Login({
                 email: this.email,
                 password: this.password
-            }
-            axios.post('http://localhost:8000/auth/login',params)
-                .then(response => {
-                    window.localStorage.setItem('jwtToken',response.data['access_token'])
-                    console.log(response)
-                })
-                .catch(err => console.log(err));
+            })
         }
     }
 }
