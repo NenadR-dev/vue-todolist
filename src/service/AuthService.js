@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { url } from '../router/urlConfig.js'
-import router from '../router/index.js'
 
 export const Login = (credentials) => {
-  axios.post(url + '/auth/login', credentials)
+  return axios.post(url + '/auth/login', credentials)
     .then(response => {
       setToken(response.data['access_token'])
-      router.push({name: 'Home'})
+      console.log('token stored')
     })
     .catch(err => {
       console.log(err)
