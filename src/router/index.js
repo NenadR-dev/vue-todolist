@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "../components/Home.vue";
 import Login from "../components/Login.vue";
 import Register from "../components/Register.vue";
+import {getToken} from '../service/AuthService.js'
 
 const routes = [
   {
@@ -35,8 +36,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.guest) {
-    var token = window.localStorage.getItem('jwtToken');
-    if (token) {
+    if (getToken()) {
       return next({ name: 'Home' })
     } else {
       return next();
