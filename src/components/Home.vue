@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { getTodos } from "../service/TodoService.js";
+import { getTodos, deleteUserTodo } from "../service/TodoService.js";
 import TodoList from "./TodoList.vue";
 import AddTodoModal from "./AddTodoModal.vue";
 export default {
