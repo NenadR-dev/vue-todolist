@@ -38,3 +38,10 @@ export const deleteUserTodo = (id) => {
             return response.data
         })
 }
+
+export const editUserTodo = (data) => {
+    return axios.patch(`${url}/api/todo/${data.id}`,data,config)
+        .then(response => {
+            return response.data
+        })
+}

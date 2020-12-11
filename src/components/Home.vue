@@ -1,14 +1,19 @@
 <template>
   <div>
     <h2>Todos</h2>
-    <modal v-if="showModal" @handle-modal="handleModal" @handle-new-todo="addTodo" />
+    <modal v-if="showModal" @handleModal="handleModal" @handleNewTodo="addTodo" />
     <button @click="handleModal">New Todo</button>
-    <todo-list :todos="todos" />
+    <todo-list
+      :todos="todos"
+      :deleteTarget="deleteTodo"
+      @edit-todo="updateTodo"
+      @complete-todo="updateTodo"
+    />
   </div>
 </template>
 
 <script>
-import { getTodos, deleteUserTodo } from "../service/TodoService.js";
+import { getTodos, deleteUserTodo, editUserTodo } from "../service/TodoService.js";
 import TodoList from "./TodoList.vue";
 import AddTodoModal from "./AddTodoModal.vue";
 export default {
@@ -41,6 +46,28 @@ export default {
       this.todos.push(data);
       this.handleModal();
     },
+    async deleteTodo(data) {
+      var index = await deleteUserTodo(data.id);
+      this.todos.splice(
+        this.todos.find((x) => x.id == index),
+        1
+      );
+    },
+    async updateTodo(data) {
+      var todo = await editUserTodo(data);
+      this.todos.forEach((el, index) => {
+        if (el.id == todo[0].id) {
+          this.todos[index] = {
+            id: todo[0].id,
+            title: todo[0].title,
+            description: todo[0].description,
+            priority: todo[0].priority,
+            completed: todo[0].completed,
+          };
+        }
+      });
+      console.log([...this.todos]);
+    }
   },
   async beforeMount() {
     await this.fetchTodos();
