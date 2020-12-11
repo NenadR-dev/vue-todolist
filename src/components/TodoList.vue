@@ -1,6 +1,6 @@
 <template>
   <div v-for="todo in todos" :key="todo.id">
-      <todo-item :todo='todo' :deleteTodoItem='deleteTodo'/>
+      <todo-item :todo='todo' :deleteTodoItem='deleteTodo' @complete-todo='completeTodo' @edit-todo='editTodoData'/>
       <br/>
   </div>
 </template>
@@ -18,6 +18,12 @@ export default {
   methods: {
     deleteTodo(data){
       this.deleteTarget(data)
+    },
+    editTodoData(data) {
+      this.$emit('edit-todo',data)
+    },
+    completeTodo(data) {
+      this.$emit('complete-todo',data);
     }
   }
 };
