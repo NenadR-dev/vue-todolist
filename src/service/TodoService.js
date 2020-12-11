@@ -9,7 +9,7 @@ var config = {
 }
 
 export const getTodos = () => {
-   return getToken() ?  axios.get(url+'/api/todo',config)
+   return getToken() ?  axios.get(`${url}/api/todo`,config)
    .then(response => {
        return response.data
    })
@@ -20,7 +20,7 @@ export const getTodos = () => {
 }
 
 export const addTodo = (data) => {
-    return axios.post(url+'/api/todo',data,config)
+    return axios.post(`${url}/api/todo`,data,config)
         .then(result => {
             return {
                 title: result.data.title,

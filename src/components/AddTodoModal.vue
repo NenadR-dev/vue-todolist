@@ -25,14 +25,19 @@
                 </div>
                 <div>
                   <label for="priority">Priority: </label>
-                  <input type="text" name="priority" id="priority" v-model="priority" />
+                  <select name="priority" id="priority" v-model="priority">
+                    <option disabled value="">Please select one</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
                 </div>
               </form>
             </div>
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="handleModal">Close</button>
+              <button class="modal-default-button" @click="$emit('handle-modal')">Close</button>
               <button class="modal-default-button" @click="createTodo">Add</button>
             </slot>
           </div>
@@ -53,13 +58,11 @@ export default {
     };
   },
   props: {
-    handleModal: constructor,
-    showModal: Boolean,
-    handleNewTodo: constructor
+    showModal: Boolean
   },
   methods: {
     async createTodo() {
-        this.handleNewTodo(await addTodo({
+      this.$emit('handle-new-todo', await addTodo({
             title: this.title,
             description: this.description,
             priority: this.priority

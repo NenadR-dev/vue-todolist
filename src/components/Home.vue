@@ -1,9 +1,9 @@
 <template>
   <div>
     <h2>Todos</h2>
-    <modal v-if="showModal" :handleModal="handleModal" :handleNewTodo='addTodo'/>
+    <modal v-if="showModal" @handle-modal="handleModal" @handle-new-todo="addTodo" />
     <button @click="handleModal">New Todo</button>
-    <todo-list :todos='todos'/>
+    <todo-list :todos="todos" />
   </div>
 </template>
 
@@ -15,28 +15,32 @@ export default {
   name: "Home",
   components: {
     TodoList: TodoList,
-    Modal: AddTodoModal
+    Modal: AddTodoModal,
   },
   data() {
     return {
       todos: [],
-      showModal: false
+      showModal: false,
     };
   },
   methods: {
     async fetchTodos() {
-      var temp = await getTodos();
-      temp.forEach(element => {
-        this.todos.push(element)
-      });
+      try {
+        var temp = await getTodos();
+        temp.forEach((element) => {
+          this.todos.push(element);
+        });
+      } catch {
+        this.todos = [];
+      }
     },
     handleModal() {
       this.showModal = !this.showModal;
     },
     addTodo(data) {
-      this.todos.push(data)
-      this.handleModal()
-    }
+      this.todos.push(data);
+      this.handleModal();
+    },
   },
   async beforeMount() {
     await this.fetchTodos();
@@ -44,6 +48,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
