@@ -18,3 +18,15 @@ export const getTodos = () => {
    })
    : []
 }
+
+export const addTodo = (data) => {
+    return axios.post(url+'/api/todo',data,config)
+        .then(result => {
+            return {
+                title: result.data.title,
+                description: result.data.description,
+                priority: result.data.priority,
+                completed: result.data.completed
+            }
+        })
+}
