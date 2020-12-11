@@ -5,11 +5,7 @@ export const Login = (credentials) => {
   return axios.post(url + '/auth/login', credentials)
     .then(response => {
       setToken(response.data['access_token'])
-      console.log('token stored')
     })
-    .catch(err => {
-      console.log(err)
-    });
 }
 
 export const Register = (userData) => {
@@ -21,9 +17,6 @@ export const Register = (userData) => {
           password: userData.password
         })
       }
-    })
-    .catch(err => {
-      console.log(err)
     })
 }
 

@@ -13,8 +13,7 @@ export const getTodos = () => {
    .then(response => {
        return response.data
    })
-   .catch(err => {
-       console.log(err);
+   .catch(() => {
        return [];
    })
    : []

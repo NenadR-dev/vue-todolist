@@ -3,18 +3,18 @@
         <form>
             <div>
                 <label for="title">Title: </label>
-                <input type="text" name="title" id="title" v-model="title" :readonly='edit'>
+                <input type="text" name="title" id="title" v-model="item.title" :readonly='edit'>
             </div>
             <div>
-                <input class="item-desc" type="text" name="description" id="description" :readonly='edit' v-model="description">
+                <input class="item-desc" type="text" name="description" id="description" :readonly='edit' v-model="item.description">
             </div>
             <div>
                 <label for="pririty">Priority: </label>
-                <input type="text" name="priority"  id="priority" :readonly='edit' v-model="priority">
+                <input type="text" name="priority"  id="priority" :readonly='edit' v-model="item.priority">
             </div>
             <div>
                 <label for="description">Complete: </label>
-                <input type="checkbox" name="completed" id="completed" v-model="completed">
+                <input type="checkbox" name="completed" id="completed" v-model="item.completed">
             </div>
             <button>Edit</button>
             <button>Delete</button>
@@ -29,18 +29,17 @@ export default {
     },
     data() {
         return{
-            title: '',
-            description: '',
-            priority: '',
-            completed: '',
+            item:{
+                title: '',
+                description: '',
+                priority: '',
+                completed: ''
+            },
             edit: true
         }
     },
     mounted(){
-        this.title = this.todo.title
-        this.description = this.todo.description
-        this.priority = this.todo.priority
-        this.completed = this.todo.completed
+       this.item=this.todo;
     }
 }
 </script>
