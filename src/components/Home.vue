@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Todos</h2>
-    <modal v-if="showModal" :handleModal="handleModal" :handleNewTodo="addTodo" />
+    <modal v-if="showModal" @handleModal="handleModal" @handleNewTodo="addTodo" />
     <button @click="handleModal">New Todo</button>
     <todo-list
       :todos="todos"
@@ -30,17 +30,14 @@ export default {
   },
   methods: {
     async fetchTodos() {
-      var temp = await getTodos();
-      temp.forEach((element) => {
-        this.todos.push({
-          id: element.id,
-          title: element.title,
-          description: element.description,
-          priority: element.priority,
-          completed: element.completed,
+      try {
+        var temp = await getTodos();
+        temp.forEach((element) => {
+          this.todos.push(element);
         });
-      });
-      console.log([...this.todos]);
+      } catch {
+        this.todos = [];
+      }
     },
     handleModal() {
       this.showModal = !this.showModal;

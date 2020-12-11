@@ -2,14 +2,14 @@ import axios from 'axios'
 import { url } from '../router/urlConfig.js'
 
 export const Login = (credentials) => {
-  return axios.post(url + '/auth/login', credentials)
+  return axios.post(`${url}/auth/login`, credentials)
     .then(response => {
       setToken(response.data['access_token'])
     })
 }
 
 export const Logout = () => {
-  axios.post(url+ '/auth/logout',null,{
+  axios.post(`${url}/auth/logout`,null,{
     headers:{
       'Authorization' : 'Bearer ' + getToken()
     }
@@ -19,7 +19,7 @@ export const Logout = () => {
 }
 
 export const Register = (userData) => {
-  axios.post(url + '/api/user', userData)
+  axios.post(`${url}/api/user`, userData)
     .then(response => {
       if(response.status == 201){
         Login({
