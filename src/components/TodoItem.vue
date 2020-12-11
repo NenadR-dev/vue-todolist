@@ -1,6 +1,6 @@
 <template>
     <div class="todo-item">
-        <form>
+        <form v-on:submit.prevent>
             <div>
                 <label for="title">Title: </label>
                 <input type="text" name="title" id="title" v-model="item.title" :readonly='edit'>
@@ -17,7 +17,7 @@
                 <input type="checkbox" name="completed" id="completed" v-model="item.completed">
             </div>
             <button>Edit</button>
-            <button>Delete</button>
+            <button @click="deleteTodo">Delete</button>
         </form>
     </div>
 </template>
@@ -25,11 +25,13 @@
 <script>
 export default {
     props:{
-        todo: {}
+        todo: {},
+        deleteTodoItem: Function
     },
     data() {
         return{
             item:{
+                id: '',
                 title: '',
                 description: '',
                 priority: '',
@@ -40,6 +42,11 @@ export default {
     },
     mounted(){
        this.item=this.todo;
+    },
+    methods: {
+        deleteTodo(){
+            this.deleteTodoItem(this.item)
+        }
     }
 }
 </script>

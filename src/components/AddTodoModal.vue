@@ -53,9 +53,9 @@ export default {
     };
   },
   props: {
-    handleModal: constructor,
+    handleModal: Function,
     showModal: Boolean,
-    handleNewTodo: constructor
+    handleNewTodo: Function
   },
   methods: {
     async createTodo() {
