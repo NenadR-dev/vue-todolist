@@ -2,14 +2,24 @@ import axios from 'axios'
 import { url } from '../router/urlConfig.js'
 
 export const Login = (credentials) => {
-  return axios.post(url + '/auth/login', credentials)
+  return axios.post(`${url}/auth/login`, credentials)
     .then(response => {
       setToken(response.data['access_token'])
     })
 }
 
+export const Logout = () => {
+  axios.post(`${url}/auth/logout`,null,{
+    headers:{
+      'Authorization' : 'Bearer ' + getToken()
+    }
+  }).then(() => {
+    deleteToken()
+  })
+}
+
 export const Register = (userData) => {
-  axios.post(url + '/api/user', userData)
+  axios.post(`${url}/api/user`, userData)
     .then(response => {
       if(response.status == 201){
         Login({
@@ -19,7 +29,9 @@ export const Register = (userData) => {
       }
     })
 }
-
+const deleteToken = () => {
+  window.localStorage.removeItem('jwtToken');
+}
 const setToken = (token) => {
   window.localStorage.setItem('jwtToken', token)
 }
