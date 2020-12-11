@@ -17,6 +17,7 @@
 
 <script>
 import { Login } from '../service/AuthService.js'
+import router from '../router/index.js'
 export default {
     data(){
         return{
@@ -25,11 +26,12 @@ export default {
         }
     },
     methods:{
-        onLogin(){
-            Login({
+        async onLogin(){
+            await Login({
                 email: this.email,
                 password: this.password
             })
+            router.push({name: 'Home'})
         }
     }
 }
